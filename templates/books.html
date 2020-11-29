@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Store</title>
+</head>
+<body>
+
+<form method="post">
+    {{ form.csrf_token }}<br>
+    {{ form.author.label }} {{ form.author }}<br><br>
+    {{ form.book.label }} {{ form.book }}<br><br>
+    {{ form.submit }}<br>
+
+{# 显示flash消息 #}
+{% for msg in get_flashed_messages() %}
+    {{ msg }}
+{% endfor %}
+
+
+<hr>
+<url>
+    {% for author in author_list %}
+        <li> {{ author.name }} <a href="{{ url_for('delete_author', author_id=author.id)}}">删除</a> </li>
+        <ul>
+        {% for book in author.books %}
+            <li> {{ book.name }} <a href="{{ url_for('delete_book', book_id=book.id) }}">删除</a></li>
+        {% else %}
+            <li>无</li>
+        {% endfor %}
+        </ul>
+    {% endfor %}
+</url>
+
+</body>
+</html>
